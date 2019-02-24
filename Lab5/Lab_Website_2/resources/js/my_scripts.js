@@ -98,9 +98,9 @@ function loadStatsPage()
 		opp =  parseInt(table.rows[row_counter].cells[3].innerHTML);
 		team = table.rows[row_counter].cells[1].innerHTML;
 
-		alert(home);
-		alert(opp);
-		alert(team);
+		//alert(home);
+		//alert(opp);
+		//alert(team);
 
 		if(opp < home)
 		{
