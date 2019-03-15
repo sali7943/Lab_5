@@ -1,0 +1,73 @@
+ /*Sam Liang
+ Lab 6
+CSCI 3308-111
+Yash Sapra
+
+ Lab questions: */
+
+//1.
+
+CREATE TABLE UniInfo(
+	uni VARCHAR(100) PRIMARY key,
+	established Date,
+	address VARCHAR(100),
+	student int,
+	rate dec
+);
+
+
+//2.
+
+insert into UniInfo(uni, established, address, student, rate)values('CU Boulder',to_date('1876','YYYY'),'1100 28th St, Boulder, CO 80303', 35000, 0.80);
+
+//3.
+
+select name, major from football_players order by major;
+
+//4.
+
+select name, rushing_yards from football_players where rushing_yards > 70;
+
+//5.
+
+select * from football_games where visitor_name = 'Nebraska';
+
+//6. displayed all the game information b/c nothing was specified
+
+select * from football_games where home_score > visitor_score;
+
+//7.
+
+select visitor_name, game_date from football_games where game_date > '2018-08-01' and game_date < '2018-12-01';
+
+//8.
+
+create view wins as select count(*) from football_games where home_score > visitor_score;
+
+select * from wins;
+
+//9.
+
+create view games as select count(*) from football_games;
+
+select * from games;
+
+//10.
+
+select wins.count::Float/games.count::float from wins, games;
+
+//11.
+
+select count(*) as total from football_games as total where (select id from football_players where name = 'Cedric Vega') = ANY(players);
+
+//creates a view of the amount of games cedric played
+
+create view total_view as select count(*) as total from football_games as total where (select id from football_players where name = 'Cedric Vega') = ANY(players);
+
+//12.
+
+//view for total rushing yards of cedric
+
+create view rushing_cedric as select rushing_yards from football_players where name = 'Cedric Vega';
+
+select (rushing_cedric.rushing_yards::float/total_view.total::float) from total_view, rushing_cedric;
